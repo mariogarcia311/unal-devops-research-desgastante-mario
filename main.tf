@@ -10,6 +10,9 @@ terraform {
 }
 
 resource "null_resource" "fibonacci" {
+    triggers = {
+    always_run = "${timestamp()}"
+  }
   provisioner "local-exec" {
     command = <<EOT
     fib() {
@@ -22,7 +25,7 @@ resource "null_resource" "fibonacci" {
       fi
     }
 
-    for ((i=0; i<=21; i++)); do
+    for ((i=0; i<=8; i++)); do
       fib $i
     done
     EOT
